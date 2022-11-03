@@ -1,0 +1,17 @@
+.pagenav {
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+.pagenav li {
+  display: inline-block;
+}
+
+.pagenav li + li {
+  margin-left: 10px;
+}
+
+.pagenav li a {
+  padding: 2px;
+}

@@ -1,0 +1,12 @@
+.photo {
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.photo img {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
