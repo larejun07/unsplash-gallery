@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 import BaseLayout, { siteTitle } from '@components/layout/base-layout'
 import { getPhotos, searchPhotos } from '@lib/photo.service'
@@ -17,10 +18,13 @@ interface GalleryProps {
 const Gallery = ({ data, page, q }: GalleryProps) => {
   const [photos, setPhotos] = useState(data)
   const [searchQ, setSearchQ] = useState(q)
+  const [currentPage, setCurrentPage] = useState(page)
+  const router = useRouter()
 
   useEffect(() => {
     setPhotos(data)
-  }, [data])
+    setCurrentPage(page)
+  }, [data, page, setCurrentPage])
 
   const handleSearch = useCallback(async (query: string) => {
     try {
@@ -28,13 +32,16 @@ const Gallery = ({ data, page, q }: GalleryProps) => {
         const result = await searchPhotos(query)
         setPhotos(result)
         setSearchQ(query)
+        router.push(`/gallery?q=${query}`)
       } else {
-        setPhotos(data)
+        setSearchQ('')
+        setCurrentPage(1)
+        router.push('/gallery')
       }
     } catch (error) {
       return error
     }
-  }, [setPhotos]);
+  }, [setPhotos, setSearchQ, setCurrentPage]);
 
   return (
     <BaseLayout>
@@ -48,7 +55,7 @@ const Gallery = ({ data, page, q }: GalleryProps) => {
           ? (
             <>
               <Photos data={photos} />
-              <PageNav page={page} query={searchQ} />
+              <PageNav page={currentPage} query={searchQ} />
             </>
           )
           : <p className="text-center">No results found</p>

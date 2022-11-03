@@ -10,7 +10,7 @@ export default function Search({ query, onSearch }: SearchProps) {
   const [keyword, setKeyword] = useState(query ?? '')
 
   const handleSubmit = useCallback((event: SyntheticEvent) => {
-    // event.preventDefault()
+    event.preventDefault()
     onSearch(keyword)
   }, [onSearch, keyword])
 

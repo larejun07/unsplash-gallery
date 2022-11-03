@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useEffect } from 'react';
 
 import styles from './nav.module.css'
 
@@ -9,12 +10,13 @@ interface PageNavProps {
 
 const PageNav = ({page, query}: PageNavProps) => {
   const pathname = '/gallery'
+
   return (
     <nav className={styles.pagenav}>
       <ul className="list-none">
         {page > 1 && (
           <li>
-            {page === 2
+            {page <= 2
               ? <Link href={{pathname, query: { q: query }}}>&laquo; Prev</Link>
               : (
                 <Link
