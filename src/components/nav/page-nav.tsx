@@ -4,22 +4,26 @@ import styles from './nav.module.css'
 
 interface PageNavProps {
   page: number;
+  query?: string;
 }
 
-const PageNav = ({page}: PageNavProps) => {
-
+const PageNav = ({page, query}: PageNavProps) => {
+  const pathname = '/gallery'
   return (
     <nav className={styles.pagenav}>
       <ul className="list-none">
         {page > 1 && (
           <li>
             {page === 2
-              ? <Link href="/gallery">&laquo; Prev</Link>
+              ? <Link href={{pathname, query: { q: query }}}>&laquo; Prev</Link>
               : (
                 <Link
                   href={{
-                    pathname: '/gallery',
-                    query: { page: page - 1 },
+                    pathname,
+                    query: {
+                      page: page - 1,
+                      q: query,
+                    },
                   }}
                 >&laquo; Prev</Link>
               )
@@ -29,8 +33,11 @@ const PageNav = ({page}: PageNavProps) => {
         <li>
           <Link
             href={{
-              pathname: '/gallery',
-              query: { page: page + 1 },
+              pathname,
+              query: {
+                page: page + 1,
+                q: query,
+              },
             }}
           >Next &raquo;</Link>
         </li>

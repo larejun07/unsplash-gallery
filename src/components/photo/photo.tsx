@@ -11,9 +11,10 @@ export default function Photo({ data }: PhotoProps) {
     <div className={`shadow-lg rounded-lg ${styles.photo}`}>
       <Image
         src={data.urls.thumb}
-        alt={data.description}
+        alt={data.description ?? ''}
         width={200}
         height={200}
+        priority
       />
     </div>
   );

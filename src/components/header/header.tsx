@@ -13,7 +13,7 @@ const Header = () => {
           <li className={asPath === '/' ? styles.active : ''}>
             <Link href="/">Home</Link>
           </li>
-          <li className={asPath === '/gallery' ? styles.active: ''}>
+          <li className={asPath.indexOf('/gallery') > -1 ? styles.active: ''}>
             <Link href="/gallery">Gallery</Link>
           </li>
         </ul>
