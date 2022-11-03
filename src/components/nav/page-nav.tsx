@@ -10,6 +10,13 @@ interface PageNavProps {
 
 const PageNav = ({page, query}: PageNavProps) => {
   const pathname = '/gallery'
+  const linkQuery = {
+    q: query,
+  }
+
+  if (!query) {
+    delete linkQuery.q
+  }
 
   return (
     <nav className={styles.pagenav}>
@@ -17,14 +24,14 @@ const PageNav = ({page, query}: PageNavProps) => {
         {page > 1 && (
           <li>
             {page <= 2
-              ? <Link href={{pathname, query: { q: query }}}>&laquo; Prev</Link>
+              ? <Link href={{pathname, query: { ...linkQuery }}}>&laquo; Prev</Link>
               : (
                 <Link
                   href={{
                     pathname,
                     query: {
                       page: page - 1,
-                      q: query,
+                      ...linkQuery,
                     },
                   }}
                 >&laquo; Prev</Link>
@@ -38,7 +45,7 @@ const PageNav = ({page, query}: PageNavProps) => {
               pathname,
               query: {
                 page: page + 1,
-                q: query,
+                ...linkQuery,
               },
             }}
           >Next &raquo;</Link>
