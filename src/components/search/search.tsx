@@ -1,4 +1,4 @@
-import { useCallback, SyntheticEvent, useState, FormEvent } from 'react';
+import { useCallback, SyntheticEvent, useState, FormEvent, useEffect, useRef } from 'react';
 import styles from './search.module.css'
 
 interface SearchProps {
@@ -8,6 +8,7 @@ interface SearchProps {
 
 export default function Search({ query, onSearch }: SearchProps) {
   const [keyword, setKeyword] = useState(query ?? '')
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const handleSubmit = useCallback((event: SyntheticEvent) => {
     event.preventDefault()
@@ -18,10 +19,15 @@ export default function Search({ query, onSearch }: SearchProps) {
     setKeyword(event.currentTarget.value)
   }, [setKeyword])
 
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [inputRef]);
+
   return (
     <div className={`flex ${styles.search}`}>
       <form onSubmit={handleSubmit}>
         <input
+          ref={inputRef}
           name="q"
           type="search"
           value={keyword}
